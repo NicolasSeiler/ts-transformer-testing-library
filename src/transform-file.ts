@@ -1,6 +1,6 @@
 import Ts from "typescript";
 import * as Path from "path";
-import { Project } from "@ts-morph/bootstrap";
+import { createProjectSync, Project } from "@ts-morph/bootstrap";
 
 /**
  * @alpha
@@ -71,7 +71,7 @@ export const transformFile = (
   file: File,
   options: TransformFileOptions
 ): string => {
-  const project = options.project || new Project({
+  const project = options.project || createProjectSync({
     useInMemoryFileSystem: true,
     compilerOptions: getCompilerOptions(options.compilerOptions)
   });

@@ -1,6 +1,6 @@
 import Ts from "typescript";
 import { ModuleDescriptor, File, transformFile, getCompilerOptions } from "./transform-file";
-import { Project } from "@ts-morph/bootstrap";
+import { createProjectSync, Project } from "@ts-morph/bootstrap";
 
 export type TransformerFn = (
   program: Ts.Program
@@ -60,7 +60,7 @@ export class Transformer {
     clone.compilerOptions = options;
 
     if (clone.project) {
-      clone.project = new Project({
+      clone.project = createProjectSync({
         useInMemoryFileSystem: true,
         compilerOptions: getCompilerOptions(clone.compilerOptions)
       });
@@ -84,7 +84,7 @@ export class Transformer {
   }
 
   public transform(input?: string): string {
-    this.project = this.project || new Project({
+    this.project = this.project || createProjectSync({
       useInMemoryFileSystem: true,
       compilerOptions: getCompilerOptions(this.compilerOptions)
     });
